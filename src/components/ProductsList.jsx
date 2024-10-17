@@ -3,11 +3,11 @@ import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
-function ProductsList() {
+function ProductsList({ setShowAddProduct, showAddProduct }) {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
-        <button>افزودن محصول</button>
+        <button onClick={() => setShowAddProduct(true)}>افزودن محصول</button>
         <div>
           <h1>مدیریت کالا</h1>
           <AiOutlineControl size={30} color="rgba(41, 45, 50, 1)" />
