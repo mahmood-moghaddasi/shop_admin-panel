@@ -3,7 +3,7 @@ import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
-function ProductsList({ setShowAddProduct, showAddProduct }) {
+function ProductsList({ setShowAddProduct, setShowEditProduct }) {
   return (
     <div className={styles.container}>
       <div className={styles.head}>
@@ -28,7 +28,7 @@ function ProductsList({ setShowAddProduct, showAddProduct }) {
               <button>
                 <BsTrash size={20} color="rgba(244, 63, 94, 1)" />
               </button>
-              <button>
+              <button onClick={() => setShowEditProduct(true)}>
                 <FaRegPenToSquare size={20} color="rgba(74, 222, 128, 1)" />
               </button>
             </td>

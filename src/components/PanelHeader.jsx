@@ -7,7 +7,7 @@ function PanelHeader() {
     <div className={styles.header}>
       <div className={styles.left}>
         <div>
-          <h3>میلاد اعظمی</h3>
+          <h3>محمود مقدسی</h3>
           <p>مدیر</p>
         </div>
         <img src="../../public/Felix-Vogel-4.jpg" alt="" />
