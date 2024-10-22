@@ -1,12 +1,9 @@
-import { Route, Routes } from "react-router-dom";
-import AdminPanelPage from "./pages/AdminPanelPage";
+import Router from "./Routes/Router";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<AdminPanelPage />} />
-      </Routes>
+      <Router />
     </>
   );
 }
