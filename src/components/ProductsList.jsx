@@ -3,7 +3,13 @@ import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
-function ProductsList({ setShowAddProduct, setShowEditProduct }) {
+function ProductsList({
+  setShowAddProduct,
+  setShowEditProduct,
+  products,
+  isLoading,
+}) {
+  if (isLoading) return <p>Loading</p>;
   return (
     <div className={styles.container}>
       <div className={styles.head}>
@@ -23,20 +29,22 @@ function ProductsList({ setShowAddProduct, setShowEditProduct }) {
             <th>موجودی</th>
             <th>نام کالا</th>
           </tr>
-          <tr>
-            <td>
-              <button>
-                <BsTrash size={20} color="rgba(244, 63, 94, 1)" />
-              </button>
-              <button onClick={() => setShowEditProduct(true)}>
-                <FaRegPenToSquare size={20} color="rgba(74, 222, 128, 1)" />
-              </button>
-            </td>
-            <td>asdfadfadf</td>
-            <td>90 هزار</td>
-            <td>239</td>
-            <td>تیشرت</td>
-          </tr>
+          {products.map((product) => (
+            <tr key={product.id}>
+              <td>
+                <button>
+                  <BsTrash size={20} color="rgba(244, 63, 94, 1)" />
+                </button>
+                <button onClick={() => setShowEditProduct(true)}>
+                  <FaRegPenToSquare size={20} color="rgba(74, 222, 128, 1)" />
+                </button>
+              </td>
+              <td>{product.id}</td>
+              <td>{product.price}</td>
+              <td>{product.count}</td>
+              <td>{product.name}</td>
+            </tr>
+          ))}
         </table>
       </div>
     </div>
