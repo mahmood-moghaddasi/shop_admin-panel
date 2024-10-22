@@ -15,6 +15,7 @@ function RegistrationPage() {
           <input type="text" placeholder="تکرار رمز عبور" />
           <button type="submit">ثبت نام</button>
         </form>
+        <p className={styles.newUser}>حساب کاربری دارید؟</p>
       </div>
     </div>
   );
