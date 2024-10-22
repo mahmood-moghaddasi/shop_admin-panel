@@ -6,10 +6,13 @@ import AddProduct from "../components/AddProduct";
 import EditProduct from "../components/EditProduct";
 import api from "../configs/api";
 import { useQuery } from "@tanstack/react-query";
+import DeleteModal from "../components/DeleteModal";
 function AdminPanelPage() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [products, setProducts] = useState([]);
+
   const fetchProducts = async () => {
     const res = await api.get("products");
     return res;
@@ -33,6 +36,7 @@ function AdminPanelPage() {
       {showEditProduct && (
         <EditProduct setShowEditProduct={setShowEditProduct} />
       )}
+      {showDeleteModal && <DeleteModal />}
     </div>
   );
 }
