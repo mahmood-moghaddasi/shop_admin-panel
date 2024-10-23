@@ -69,7 +69,9 @@ function RegistrationPage() {
           />
           <button type="submit">ثبت نام</button>
         </form>
-        <p className={styles.newUser}>حساب کاربری دارید؟</p>
+        <p className={styles.newUser} onClick={() => navigate("/login")}>
+          حساب کاربری دارید؟
+        </p>
       </div>
     </div>
   );

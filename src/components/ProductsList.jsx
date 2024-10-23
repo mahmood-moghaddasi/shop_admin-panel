@@ -5,6 +5,7 @@ import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProduct } from "../services/Products";
+import Loading from "./Loading";
 
 function ProductsList({
   setShowAddProduct,
@@ -26,7 +27,7 @@ function ProductsList({
     setProductToEdit(product);
     setShowEditProduct(true);
   };
-  if (error) return <p>{error.message}</p>;
+  if (error) console.log(error);
   return (
     <div className={styles.container}>
       <div className={styles.head}>
@@ -47,7 +48,7 @@ function ProductsList({
             <th>نام کالا</th>
           </tr>
           {isPending ? (
-            <p>isloading</p>
+            <Loading />
           ) : (
             data.data.data.map((product) => (
               <tr key={product.id}>

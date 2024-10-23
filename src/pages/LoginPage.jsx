@@ -57,7 +57,9 @@ function LoginPage() {
 
           <button type="submit">ورود</button>
         </form>
-        <p className={styles.newUser}>ایجاد حساب کاربری</p>
+        <p className={styles.newUser} onClick={() => navigate("/register")}>
+          ایجاد حساب کاربری
+        </p>
       </div>
     </div>
   );
