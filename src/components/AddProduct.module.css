@@ -61,6 +61,7 @@
   height: auto;
   justify-content: space-between;
   gap: 19px;
+  margin-top: 19px;
 }
 .buttons button {
   width: 185px;

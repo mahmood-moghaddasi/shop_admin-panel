@@ -6,11 +6,13 @@ function AddProduct({ setShowAddProduct }) {
     count: "",
     price: "",
   });
+  console.log(product);
   const changeHandler = (event) => {
-    setProduct({ ...form, [event.target.name]: event.target.value });
+    setProduct({ ...product, [event.target.name]: event.target.value });
   };
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log("hi");
 
     if (!product.name || !product.count || !product.price)
       return alert("fill all of inputs");
@@ -51,11 +53,11 @@ function AddProduct({ setShowAddProduct }) {
               placeholder="قیمت"
             />
           </div>
+          <div className={styles.buttons}>
+            <button onClick={() => setShowAddProduct(false)}>انصراف</button>
+            <button type="submit">ایجاد</button>
+          </div>
         </form>
-        <div className={styles.buttons}>
-          <button onClick={() => setShowAddProduct(false)}>انصراف</button>
-          <button type="submit">ایجاد</button>
-        </div>
       </div>
     </div>
   );
