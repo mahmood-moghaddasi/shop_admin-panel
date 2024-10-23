@@ -1,6 +1,15 @@
 import React from "react";
 import styles from "./DeleteModal.module.css";
-function DeleteModal() {
+import api from "../configs/api";
+import { useMutation } from "@tanstack/react-query";
+function DeleteModal({ setShowDeleteModal, deleteProductId }) {
+  const mutationFn = (id) => api.delete(`products/${id}`);
+  const { mutate } = useMutation({ mutationFn });
+
+  const deleteHandler = () => {
+    mutate(deleteProductId);
+    setShowDeleteModal(false);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.modal}>
@@ -10,8 +19,8 @@ function DeleteModal() {
         <div className={styles.action}>
           <h3>آیا از حذف این محصول مطمئنید؟</h3>
           <div className={styles.buttons}>
-            <button>لغو</button>
-            <button>حذف</button>
+            <button onClick={() => setShowDeleteModal(false)}>لغو</button>
+            <button onClick={deleteHandler}>حذف</button>
           </div>
         </div>
       </div>

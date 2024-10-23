@@ -5,18 +5,21 @@ import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProduct } from "../services/Products";
-import api from "../configs/api";
 
-function ProductsList({ setShowAddProduct, setShowEditProduct }) {
+function ProductsList({
+  setShowAddProduct,
+  setShowEditProduct,
+  setShowDeleteModal,
+  setDeleteProductId,
+}) {
   const { data, isPending, error } = useQuery({
     queryKey: ["data"],
     queryFn: getProduct,
   });
-  const mutationFn = (id) => api.delete(`products/${id}`);
-  const { mutate } = useMutation({ mutationFn });
 
   const deleteHandler = (id) => {
-    mutate(id);
+    setShowDeleteModal(true);
+    setDeleteProductId(id);
   };
 
   if (error) return <p>{error.message}</p>;
