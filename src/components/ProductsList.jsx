@@ -48,7 +48,7 @@ function ProductsList({ setShowAddProduct, setShowEditProduct }) {
                 </td>
                 <td>{product.id}</td>
                 <td>{product.price}</td>
-                <td>{product.count}</td>
+                <td>{product.quantity}</td>
                 <td>{product.name}</td>
               </tr>
             ))

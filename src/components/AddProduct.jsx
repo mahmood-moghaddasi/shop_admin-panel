@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import styles from "./AddProduct.module.css";
+import { useMutation } from "@tanstack/react-query";
+import api from "../configs/api";
 function AddProduct({ setShowAddProduct }) {
   const [product, setProduct] = useState({
     name: "",
-    count: "",
+    quantity: "",
     price: "",
   });
+
+  const mutationFn = (data) => api.post("/products", data);
+
+  const { mutate } = useMutation({ mutationFn });
+
   console.log(product);
   const changeHandler = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
@@ -14,8 +21,18 @@ function AddProduct({ setShowAddProduct }) {
     event.preventDefault();
     console.log("hi");
 
-    if (!product.name || !product.count || !product.price)
+    if (!product.name || !product.quantity || !product.price)
       return alert("fill all of inputs");
+
+    mutate(product, {
+      onSuccess: (data) => {
+        console.log(data);
+        setShowAddProduct(false);
+      },
+      onError: (error) => {
+        console.log(error.response.data.message);
+      },
+    });
   };
   return (
     <div className={styles.container}>
@@ -37,9 +54,9 @@ function AddProduct({ setShowAddProduct }) {
             <label htmlFor="">تعداد موجودی</label>
             <input
               onChange={changeHandler}
-              name="count"
+              name="quantity"
               type="text"
-              value={product.count}
+              value={product.quantity}
               placeholder="تعداد موجودی"
             />
           </div>
