@@ -11,6 +11,7 @@ function ProductsList({
   setShowEditProduct,
   setShowDeleteModal,
   setDeleteProductId,
+  setProductToEdit,
 }) {
   const { data, isPending, error } = useQuery({
     queryKey: ["data"],
@@ -21,7 +22,10 @@ function ProductsList({
     setShowDeleteModal(true);
     setDeleteProductId(id);
   };
-
+  const editHandler = (product) => {
+    setProductToEdit(product);
+    setShowEditProduct(true);
+  };
   if (error) return <p>{error.message}</p>;
   return (
     <div className={styles.container}>
@@ -51,7 +55,7 @@ function ProductsList({
                   <button onClick={() => deleteHandler(product.id)}>
                     <BsTrash size={20} color="rgba(244, 63, 94, 1)" />
                   </button>
-                  <button onClick={() => setShowEditProduct(true)}>
+                  <button onClick={() => editHandler(product)}>
                     <FaRegPenToSquare size={20} color="rgba(74, 222, 128, 1)" />
                   </button>
                 </td>

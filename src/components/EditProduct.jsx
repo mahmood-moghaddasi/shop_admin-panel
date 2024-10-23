@@ -1,30 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./EditProduct.module.css";
-function EditProduct({ setShowEditProduct }) {
+import { useMutation } from "@tanstack/react-query";
+import api from "../configs/api";
+function EditProduct({ setShowEditProduct, productToEdit }) {
+  const [form, setForm] = useState(productToEdit);
+  const changeHandler = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+  const mutationFn = (data) => api.put(`/products/${productToEdit.id}`, data);
+  const { mutate } = useMutation({ mutationFn });
+  const submitHandler = (event) => {
+    event.preventDefault();
+    mutate(form, {
+      onSuccess: (data) => {
+        console.log(data);
+        setShowEditProduct(false);
+      },
+      onError: (error) => {
+        console.log(error.response.data.message);
+      },
+    });
+  };
   return (
     <div className={styles.container}>
-      <div className={styles.form}>
+      <form onSubmit={submitHandler} className={styles.form}>
         <h3>ویرایش اطلاعات</h3>
 
         <div className={styles.inputs}>
           <div>
             <label htmlFor="">نام کالا</label>
-            <input type="text" placeholder="نام کالا" />
+            <input
+              name="name"
+              onChange={changeHandler}
+              type="text"
+              value={form.name}
+              placeholder="نام کالا"
+            />
           </div>
           <div>
             <label htmlFor="">تعداد موجودی</label>
-            <input type="text" placeholder="تعداد موجودی" />
+            <input
+              name="quantity"
+              onChange={changeHandler}
+              type="text"
+              value={form.quantity}
+              placeholder="تعداد موجودی"
+            />
           </div>
           <div>
             <label htmlFor="">قیمت</label>
-            <input type="text" placeholder="قیمت" />
+            <input
+              name="price"
+              onChange={changeHandler}
+              type="text"
+              value={form.price}
+              placeholder="قیمت"
+            />
           </div>
         </div>
         <div className={styles.buttons}>
           <button onClick={() => setShowEditProduct(false)}>انصراف</button>
-          <button>ثبت اطلاعات جدید</button>
+          <button type="submit">ثبت اطلاعات جدید</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

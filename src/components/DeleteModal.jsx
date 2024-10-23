@@ -7,8 +7,15 @@ function DeleteModal({ setShowDeleteModal, deleteProductId }) {
   const { mutate } = useMutation({ mutationFn });
 
   const deleteHandler = () => {
-    mutate(deleteProductId);
-    setShowDeleteModal(false);
+    mutate(deleteProductId, {
+      onSuccess: (data) => {
+        console.log(data);
+        setShowDeleteModal(false);
+      },
+      onError: (error) => {
+        console.log(error.response.data.message);
+      },
+    });
   };
   return (
     <div className={styles.container}>

@@ -10,7 +10,7 @@ function AdminPanelPage() {
   const [showEditProduct, setShowEditProduct] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteProductId, setDeleteProductId] = useState("");
-
+  const [productToEdit, setProductToEdit] = useState("");
   return (
     <div className={styles.container}>
       <PanelHeader />
@@ -19,10 +19,14 @@ function AdminPanelPage() {
         setShowEditProduct={setShowEditProduct}
         setShowDeleteModal={setShowDeleteModal}
         setDeleteProductId={setDeleteProductId}
+        setProductToEdit={setProductToEdit}
       />
       {showAddProduct && <AddProduct setShowAddProduct={setShowAddProduct} />}
       {showEditProduct && (
-        <EditProduct setShowEditProduct={setShowEditProduct} />
+        <EditProduct
+          setShowEditProduct={setShowEditProduct}
+          productToEdit={productToEdit}
+        />
       )}
       {showDeleteModal && (
         <DeleteModal
