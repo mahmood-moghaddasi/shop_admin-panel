@@ -3,15 +3,21 @@ import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProduct } from "../services/Products";
+import api from "../configs/api";
 
 function ProductsList({ setShowAddProduct, setShowEditProduct }) {
   const { data, isPending, error } = useQuery({
     queryKey: ["data"],
     queryFn: getProduct,
   });
-  console.log({ data, isPending, error });
+  const mutationFn = (id) => api.delete(`products/${id}`);
+  const { mutate } = useMutation({ mutationFn });
+
+  const deleteHandler = (id) => {
+    mutate(id);
+  };
 
   if (error) return <p>{error.message}</p>;
   return (
@@ -39,7 +45,7 @@ function ProductsList({ setShowAddProduct, setShowEditProduct }) {
             data.data.data.map((product) => (
               <tr key={product.id}>
                 <td>
-                  <button>
+                  <button onClick={() => deleteHandler(product.id)}>
                     <BsTrash size={20} color="rgba(244, 63, 94, 1)" />
                   </button>
                   <button onClick={() => setShowEditProduct(true)}>
