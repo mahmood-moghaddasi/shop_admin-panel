@@ -1,9 +1,12 @@
+import TanstackQueryProvider from "./providers/TanstackQueryProvider";
 import Router from "./Routes/Router";
 
 function App() {
   return (
     <>
-      <Router />
+      <TanstackQueryProvider>
+        <Router />
+      </TanstackQueryProvider>
     </>
   );
 }

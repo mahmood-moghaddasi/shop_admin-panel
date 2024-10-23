@@ -3,13 +3,18 @@ import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
-function ProductsList({
-  setShowAddProduct,
-  setShowEditProduct,
-  products,
-  isLoading,
-}) {
-  if (isLoading) return <p>Loading</p>;
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import api from "../configs/api";
+import { getProduct } from "../services/Products";
+
+function ProductsList({ setShowAddProduct, setShowEditProduct }) {
+  const { data, isPending } = useQuery({
+    queryKey: ["data"],
+    queryFn: getProduct,
+  });
+  console.log({ data, isPending });
+  if (isPending) return <p>Loading</p>;
   return (
     <div className={styles.container}>
       <div className={styles.head}>
@@ -29,7 +34,7 @@ function ProductsList({
             <th>موجودی</th>
             <th>نام کالا</th>
           </tr>
-          {products.map((product) => (
+          {data.data.data.map((product) => (
             <tr key={product.id}>
               <td>
                 <button>
