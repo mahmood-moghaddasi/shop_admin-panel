@@ -4,7 +4,7 @@ import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getProduct } from "../services/Products";
+import { getProducts } from "../services/Products";
 import Loading from "./Loading";
 
 function ProductsList({
@@ -14,10 +14,7 @@ function ProductsList({
   setDeleteProductId,
   setProductToEdit,
 }) {
-  const { data, isPending, error } = useQuery({
-    queryKey: ["data"],
-    queryFn: getProduct,
-  });
+  const { data, isPending, error } = getProducts();
 
   const deleteHandler = (id) => {
     setShowDeleteModal(true);

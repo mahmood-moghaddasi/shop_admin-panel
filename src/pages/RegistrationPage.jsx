@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styles from "./RegistrationPage.module.css";
-import { useMutation } from "@tanstack/react-query";
-import api from "../configs/api";
 import { useNavigate } from "react-router-dom";
+import { useRegister } from "../services/mutations";
 function RegistrationPage() {
   const [form, setForm] = useState({
     userName: "",
@@ -11,8 +10,8 @@ function RegistrationPage() {
   });
   console.log(form);
   const navigate = useNavigate();
-  const mutationFn = (data) => api.post("auth/register", data);
-  const { mutate } = useMutation({ mutationFn });
+
+  const { mutate } = useRegister();
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });

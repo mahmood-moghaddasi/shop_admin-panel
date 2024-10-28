@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "./EditProduct.module.css";
 import { useMutation } from "@tanstack/react-query";
 import api from "../configs/api";
+import { useEditHandler } from "../services/mutations";
 function EditProduct({ setShowEditProduct, productToEdit }) {
   const [form, setForm] = useState(productToEdit);
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-  const mutationFn = (data) => api.put(`/products/${productToEdit.id}`, data);
-  const { mutate } = useMutation({ mutationFn });
+
+  const { mutate } = useEditHandler();
   const submitHandler = (event) => {
     event.preventDefault();
     mutate(form, {

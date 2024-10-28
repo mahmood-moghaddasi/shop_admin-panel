@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import styles from "./LoginPage.module.css";
-import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "../utils/cookie";
 import { useNavigate } from "react-router-dom";
-import api from "../configs/api";
+import { useLogin } from "../services/mutations";
 function LoginPage() {
   const [form, setForm] = useState({
     userName: "",
     password: "",
   });
   const navigate = useNavigate();
-  const mutationFn = (data) => api.post("auth/login", data);
-  const { mutate } = useMutation({ mutationFn });
+
+  const { mutate } = useLogin();
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });

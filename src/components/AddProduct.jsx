@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./AddProduct.module.css";
 import { useMutation } from "@tanstack/react-query";
 import api from "../configs/api";
+import { useCreateProduct } from "../services/mutations";
 function AddProduct({ setShowAddProduct }) {
   const [product, setProduct] = useState({
     name: "",
@@ -9,11 +10,8 @@ function AddProduct({ setShowAddProduct }) {
     price: "",
   });
 
-  const mutationFn = (data) => api.post("/products", data);
+  const { mutate } = useCreateProduct();
 
-  const { mutate } = useMutation({ mutationFn });
-
-  console.log(product);
   const changeHandler = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
   };
