@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./PanelHeader.module.css";
-import { CiSearch } from "react-icons/ci";
+
 import { LuSearch } from "react-icons/lu";
-function PanelHeader() {
+function PanelHeader({ searchValue, setSearchValue }) {
+  const searchHandler = (event) => {
+    setSearchValue(event.target.value);
+  };
   return (
     <div className={styles.header}>
       <div className={styles.left}>
@@ -13,7 +16,12 @@ function PanelHeader() {
         <img src="../../public/Felix-Vogel-4.jpg" alt="" />
       </div>
       <div className={styles.right}>
-        <input placeholder="جستجو کالا" type="text" />
+        <input
+          placeholder="جستجو کالا"
+          type="text"
+          onChange={searchHandler}
+          value={searchValue}
+        />
 
         <LuSearch color="rgba(40, 40, 40, 1)" size={26} />
       </div>

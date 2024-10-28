@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
@@ -6,6 +6,7 @@ import { FaRegPenToSquare } from "react-icons/fa6";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProducts } from "../services/Products";
 import Loading from "./Loading";
+import { searchFilter } from "../utils/searchFilter";
 
 function ProductsList({
   setShowAddProduct,
@@ -13,8 +14,10 @@ function ProductsList({
   setShowDeleteModal,
   setDeleteProductId,
   setProductToEdit,
+  searchValue,
 }) {
   const { data, isPending, error } = getProducts();
+  const filteredProducts = searchFilter(data.data.data, searchValue);
 
   const deleteHandler = (id) => {
     setShowDeleteModal(true);
@@ -24,6 +27,7 @@ function ProductsList({
     setProductToEdit(product);
     setShowEditProduct(true);
   };
+
   if (error) console.log(error);
   return (
     <div className={styles.container}>
@@ -46,6 +50,23 @@ function ProductsList({
           </tr>
           {isPending ? (
             <Loading />
+          ) : searchValue ? (
+            filteredProducts.map((product) => (
+              <tr key={product.id}>
+                <td>
+                  <button onClick={() => deleteHandler(product.id)}>
+                    <BsTrash size={20} color="rgba(244, 63, 94, 1)" />
+                  </button>
+                  <button onClick={() => editHandler(product)}>
+                    <FaRegPenToSquare size={20} color="rgba(74, 222, 128, 1)" />
+                  </button>
+                </td>
+                <td>{product.id}</td>
+                <td>{product.price}</td>
+                <td>{product.quantity}</td>
+                <td>{product.name}</td>
+              </tr>
+            ))
           ) : (
             data.data.data.map((product) => (
               <tr key={product.id}>
