@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PanelHeader from "../components/PanelHeader";
 import styles from "./AdminPanelPage.module.css";
 import ProductsList from "../components/ProductsList";
 import AddProduct from "../components/AddProduct";
 import EditProduct from "../components/EditProduct";
 import DeleteModal from "../components/DeleteModal";
+import Pagination from "../components/Pagination";
 function AdminPanelPage() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
@@ -12,6 +13,9 @@ function AdminPanelPage() {
   const [deleteProductId, setDeleteProductId] = useState("");
   const [productToEdit, setProductToEdit] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   return (
     <div className={styles.container}>
       <PanelHeader searchValue={searchValue} setSearchValue={setSearchValue} />
@@ -22,6 +26,8 @@ function AdminPanelPage() {
         setDeleteProductId={setDeleteProductId}
         setProductToEdit={setProductToEdit}
         searchValue={searchValue}
+        page={page}
+        setTotalPages={setTotalPages}
       />
       {showAddProduct && <AddProduct setShowAddProduct={setShowAddProduct} />}
       {showEditProduct && (
@@ -36,6 +42,7 @@ function AdminPanelPage() {
           deleteProductId={deleteProductId}
         />
       )}
+      <Pagination setPage={setPage} page={page} totalPages={totalPages} />
     </div>
   );
 }

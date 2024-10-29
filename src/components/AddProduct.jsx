@@ -17,7 +17,6 @@ function AddProduct({ setShowAddProduct }) {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log("hi");
 
     if (!product.name || !product.quantity || !product.price)
       return alert("fill all of inputs");

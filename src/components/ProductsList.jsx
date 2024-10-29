@@ -3,7 +3,6 @@ import styles from "./ProductsList.module.css";
 import { AiOutlineControl } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { FaRegPenToSquare } from "react-icons/fa6";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProducts } from "../services/Products";
 import Loading from "./Loading";
 import { searchFilter } from "../utils/searchFilter";
@@ -15,8 +14,13 @@ function ProductsList({
   setDeleteProductId,
   setProductToEdit,
   searchValue,
+  page,
+  setTotalPages,
 }) {
-  const { data, isPending, error } = getProducts();
+  const { data, isPending, error } = getProducts(page);
+  if (data != undefined) {
+    setTotalPages(data.data.totalPages);
+  }
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const deleteHandler = (id) => {
@@ -32,7 +36,7 @@ function ProductsList({
       setFilteredProducts(searchFilter(data.data.data, searchValue));
   }, [searchValue]);
 
-  if (error) console.log(error);
+  if (error) console.log(error.response.data.message);
   return (
     <div className={styles.container}>
       <div className={styles.head}>

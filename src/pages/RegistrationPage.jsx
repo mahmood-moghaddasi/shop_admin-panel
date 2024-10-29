@@ -8,7 +8,7 @@ function RegistrationPage() {
     password: "",
     confirmPassword: "",
   });
-  console.log(form);
+
   const navigate = useNavigate();
 
   const { mutate } = useRegister();

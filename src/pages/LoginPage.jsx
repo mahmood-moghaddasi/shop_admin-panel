@@ -21,7 +21,7 @@ function LoginPage() {
     const { userName, password } = form;
     if (!userName || !password)
       return alert("User Name and Password is Necessary");
-    console.log("hi");
+
     mutate(form, {
       onSuccess: (data) => {
         console.log(data.data);
