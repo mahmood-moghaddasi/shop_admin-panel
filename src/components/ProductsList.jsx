@@ -17,7 +17,7 @@ function ProductsList({
   searchValue,
 }) {
   const { data, isPending, error } = getProducts();
-  const filteredProducts = searchFilter(data.data.data, searchValue);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const deleteHandler = (id) => {
     setShowDeleteModal(true);
@@ -27,6 +27,10 @@ function ProductsList({
     setProductToEdit(product);
     setShowEditProduct(true);
   };
+  useEffect(() => {
+    if (searchValue)
+      setFilteredProducts(searchFilter(data.data.data, searchValue));
+  }, [searchValue]);
 
   if (error) console.log(error);
   return (

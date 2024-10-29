@@ -50,7 +50,7 @@ function LoginPage() {
             onChange={changeHandler}
             name="password"
             value={form.password || ""}
-            type="text"
+            type="password"
             placeholder="رمز عبور"
           />
 

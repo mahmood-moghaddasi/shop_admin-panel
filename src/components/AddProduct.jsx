@@ -6,8 +6,8 @@ import { useCreateProduct } from "../services/mutations";
 function AddProduct({ setShowAddProduct }) {
   const [product, setProduct] = useState({
     name: "",
-    quantity: "",
-    price: "",
+    quantity: 0,
+    price: 0,
   });
 
   const { mutate } = useCreateProduct();
@@ -53,7 +53,7 @@ function AddProduct({ setShowAddProduct }) {
             <input
               onChange={changeHandler}
               name="quantity"
-              type="text"
+              type="number"
               value={product.quantity}
               placeholder="تعداد موجودی"
             />
@@ -63,7 +63,7 @@ function AddProduct({ setShowAddProduct }) {
             <input
               onChange={changeHandler}
               name="price"
-              type="text"
+              type="number"
               value={product.value}
               placeholder="قیمت"
             />
